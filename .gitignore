@@ -1,0 +1,21 @@
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore editor and IDE directories
+.vscode/
+.idea/
+
+# Ignore dependency directories (in case you add npm/yarn later)
+node_modules/
+
+# Ignore packaged extension files and build output
+dist/
+*.zip
+*.crx
+*.code-workspace
+*.log
+*.subscriptions
+*.tmp
+*.tmp.zip
+*.tmp .crx 

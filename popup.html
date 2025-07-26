@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --primary-hover: #0056b3;
+      --secondary-color: #6c757d;
+      --secondary-hover: #5a6268;
+      --success-color: #28a745;
+      --success-hover: #218838;
+      --danger-color: #dc3545;
+      --danger-hover: #c82333;
+      --warning-color: #ffc107;
+      --warning-hover: #e0a800;
+      --light-bg: #f8f9fa;
+      --dark-text: #343a40;
+      --light-text: #ffffff;
+      --border-color: #dee2e6;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      min-width: 350px;
+      height: auto;
+      padding: 20px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+    }
+    
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 9px 8px 20px -4px rgba(182, 182, 182, 0.75);
+      max-width: 350px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      text-align: center;
+      color: var(--primary-color);
+      margin: 0 0 0px;
+      font-size: 1.4em;
+      font-weight: 700;
+    }
+    
+    .form-group {
+      margin-bottom: 3px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--secondary-color);
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+    
+    input[type="number"] {
+      width: 100%;
+      padding: 5px 6px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1em;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    input[type="number"]:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .button-group button, button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background-color 0.2s, transform 0.1s;
+      text-align: center;
+    }
+
+    .button-group button:active, button:active {
+        transform: scale(0.98);
+    }
+    
+    #saveValues {
+      background-color: var(--success-color);
+      color: var(--light-text);
+    }
+    #saveValues:hover {
+      background-color: var(--success-hover);
+    }
+
+    #resetValues {
+      background-color: var(--warning-color);
+      color: var(--dark-text);
+    }
+    #resetValues:hover {
+      background-color: var(--warning-hover);
+    }
+    
+    #updateValueButton {
+      background-color: var(--primary-color);
+      color: var(--light-text);
+    }
+    #updateValueButton:hover {
+      background-color: var(--primary-hover);
+    }
+    
+    #checkStatus {
+      background-color: var(--secondary-color);
+      color: var(--light-text);
+    }
+    #checkStatus:hover {
+      background-color: var(--secondary-hover);
+    }
+    
+    .status {
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9em;
+      display: none;
+      border: 1px solid transparent;
+    }
+    
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+    
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+    
+    .status.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      border-color: #bee5eb;
+    }
+
+    .calc {
+      margin-bottom: 5px;
+      padding: 10px;
+      background-color: var(--light-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.85em;
+      line-height: 1rem;
+      box-shadow: 5px 5px 20px -4px rgba(199, 195, 195, 0.75);
+      display: none;
+    }
+    .calc p {
+      margin: 0;
+      padding: 3px 0;
+      color: var(--dark-text);
+    }
+    .calc p:last-child {
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 10px 0;
+    }
+    .footer-message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1em;
+      color: black !important;
+      padding: 0 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Manage Student Fees</h3>
+
+    <div class="calc">
+      <p id="displayTotalAmount"></p>
+      <p id="displayVatAmount"></p>
+      <p id="displayDiscount"></p>
+      <p id="displayReceivedAmount"></p>
+    </div>
+
+    <div class="form-group">
+      <label for="totalAmount">Total Amount:</label>
+      <input type="number" id="totalAmount" placeholder="Enter total amount">
+    </div>
+    
+    <div class="form-group">
+      <label for="discountAmount">Discount Amount:</label>
+      <input type="number" id="discountAmount" placeholder="Enter discount amount">
+    </div>
+    
+    <div class="form-group">
+      <label for="vatAmount">VAT Amount:</label>
+      <input type="number" id="vatAmount" placeholder="Enter VAT amount">
+    </div>
+    
+    <div class="form-group">
+      <label for="grandTotalAmount">Grand Total Amount:</label>
+      <input type="number" id="grandTotalAmount" placeholder="Enter grand total amount">
+    </div>
+    
+    <div class="form-group">
+      <label for="receivedAmount">Received Amount:</label>
+      <input type="number" id="receivedAmount" placeholder="Enter received amount">
+    </div>
+    
+    <div class="button-group">
+      <button id="saveValues" title="Save the values above for automation">Save Values</button>
+      <button id="resetValues" title="Clear all saved values">Reset</button>
+    </div>
+    <hr style="border: none; border-top: 1px solid #eee; margin: 10px 0;">
+    <div class="button-group actions">
+      <button id="updateValueButton">Update Value</button>
+      <button id="checkStatus">Check Status</button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="footer-message">
+      <span>Developed by <b>Md Bashir Ahmed</b> 💗</span>
+      <br>
+      <span><a href="https://www.linkedin.com/in/bashir</b>Md Bashir Ahmed 💗</span>
+      <br>
+      <span><a href="https://www.linkedin.com/in/bashir-6923131b0" target="_blank">LinkedIn</a> | Open to your thoughts and
+      feedback.</span>
+    </div>
+    </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

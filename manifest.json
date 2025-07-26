@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Manage Student Fees",
+  "version": "1.0",
+  "description": "A Chrome extension to manage student fees efficiently.",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["*://*/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Manage Student Fees"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
